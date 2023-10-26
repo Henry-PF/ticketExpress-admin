@@ -6,7 +6,21 @@ import styles from '../CreateCompany/CreateCompany.module.css';
 
 export default function CreateCompany(){
     return (
-        <div>
+        <div class="wrapper">
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="/" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                <a href="/create_bus" class="nav-link">Home</a>
+                </li>
+            </ul>
+            </nav>
+
+
+        <div class="content-wrapper">
+            <section class="content-header">
             <h1 className='text-center m-5'>Crear Empresa</h1>
             <Form className={styles.container}>
                 <div className={styles.input_container}>
@@ -69,6 +83,8 @@ export default function CreateCompany(){
             <div className={styles.botonBack}>
                 <a href="/" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
             </div>
+        </section>
         </div>
+    </div>
     )
 }
