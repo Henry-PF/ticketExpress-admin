@@ -1,25 +1,22 @@
 import { Route, Routes } from 'react-router-dom';
-import CreateRoute from './components/CreateRoute/CreateRoute';
-
-import Selection from './components/Selection/Selection';
-import CreateCompany from './CreateCompany/CreateCompany';
-import CreateBus from './CreateBus/CreateBus';
-import ModifyCompany from './ModifyCompany/ModifyCompany';
-import ModifyBus from './ModifyBus/ModifyBus';
-import ModifyRoute from './ModifyRoute/ModifyRoute';
+import Home from './components/LandingPage/Home/Home';
+import Login from './components/Login/Login';
+import Buses from './components/LandingPage/Buses/Buses';
+import Terminales from './components/LandingPage/Terminales/Terminales';
+import Usuarios from './components/LandingPage/Usuarios/Usuarios';
+import Empresas from './components/LandingPage/Empresas/Empresas';
 import './App.css';
 
 function App() {
   return (
       <div className="App">
         <Routes>
-          <Route exact path='/' element={<Selection />} />
-          <Route path='/create_company' element={<CreateCompany />} />
-          <Route path='/create_bus' element={<CreateBus />} />
-          <Route path='/create_route' element={<CreateRoute />} />
-          <Route path='/modify_company' element={<ModifyCompany />} />
-          <Route path='/modify_bus' element={<ModifyBus />} />
-          <Route path='/modify_route' element={<ModifyRoute />} />
+          <Route exact path='/' element={<Login />} />
+          <Route exact path='/admin/home' element={<Home />} />
+          <Route exact path='/admin/buses' element={<Buses />} />
+          <Route exact path='/admin/terminales' element={<Terminales />} />
+          <Route exact path='/admin/usuarios' element={<Usuarios />} />
+          <Route exact path='/admin/empresas' element={<Empresas />} />
         </Routes>
       </div>
   );
