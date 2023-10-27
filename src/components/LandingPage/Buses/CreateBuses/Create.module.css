@@ -1,0 +1,7 @@
+.main {
+    display: flex;
+    color: black;
+    height: screen;
+    background-color: black;
+    width: screen;
+}

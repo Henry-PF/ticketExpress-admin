@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar';
 
 const Usuarios = () => {
 
@@ -8,7 +8,7 @@ const Usuarios = () => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="sidebar col-auto px-0 min-vh-100 bg-dark">
-                        <Sidebar />
+                        {/* <Sidebar /> */}
                     </div>
                 </div>
             </div>
