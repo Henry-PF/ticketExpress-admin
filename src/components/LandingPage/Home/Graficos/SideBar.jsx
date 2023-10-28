@@ -17,12 +17,12 @@ export default function SideBar() {
         return setEmpresasistrue(!Empresasistrue);
     }
     // -----------------------------------------------------------------------
-    // --------------------------------Lista de Terminales---------------------------------------
-    const [Terminalesistrue, setTerminalesistrue] = React.useState(false);
-    const [TerminalesOpen, setTerminalesOpen] = React.useState("nav-item menu-open");
-    const [TerminalesClose, setTerminalesClose] = React.useState("nav-item");
-    const TerminalesHandle = () => {
-        return setTerminalesistrue(!Terminalesistrue);
+    // --------------------------------Lista de Rutas---------------------------------------
+    const [Rutasistrue, setRutasistrue] = React.useState(false);
+    const [RutasOpen, setRutasOpen] = React.useState("nav-item menu-open");
+    const [RutasClose, setRutasClose] = React.useState("nav-item");
+    const RutasHandle = () => {
+        return setRutasistrue(!Rutasistrue);
     }
     // -----------------------------------------------------------------------
 
@@ -56,21 +56,9 @@ export default function SideBar() {
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/admin/buses/delete" className="nav-link">
-                                            <i className="far fa-circle nav-icon" />
-                                            <p>Delete</p>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href="/admin/buses/read" className="nav-link">
-                                            <i className="far fa-circle nav-icon" />
-                                            <p>Read</p>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
                                         <a href="/admin/buses/update" className="nav-link">
                                             <i className="far fa-circle nav-icon" />
-                                            <p>Update</p>
+                                            <p>Update-Delete</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -93,58 +81,34 @@ export default function SideBar() {
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/admin/empresas/delete" className="nav-link">
-                                            <i className="far fa-circle nav-icon" />
-                                            <p>Delete</p>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href="/admin/empresas/read" className="nav-link">
-                                            <i className="far fa-circle nav-icon" />
-                                            <p>Read</p>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
                                         <a href="/admin/empresas/update" className="nav-link">
                                             <i className="far fa-circle nav-icon" />
-                                            <p>Update</p>
+                                            <p>Update-Delete</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li className={Terminalesistrue === true ? TerminalesOpen : TerminalesClose} onClick={() => TerminalesHandle()}>
+                            <li className={Rutasistrue === true ? RutasOpen : RutasClose} onClick={() => RutasHandle()}>
                                 <a href="#" className="nav-link">
                                     <i className="nav-icon fas fa-edit" />
                                     <p>
-                                        Terminales
+                                        Rutas
                                         <i className="fas fa-angle-left right" />
                                     </p>
                                 </a>
                                 <ul className="nav nav-treeview">
                                     <li className="nav-item">
-                                        <a href="/admin/terminales/create" className="nav-link ">
+                                        <a href="/admin/Rutas/create" className="nav-link ">
                                             <i className="far fa-circle nav-icon" />
                                             <p>Create</p>
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/admin/terminales/delete" className="nav-link">
+                                        <a href="/admin/Rutas/update" className="nav-link">
                                             <i className="far fa-circle nav-icon" />
-                                            <p>Delete</p>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href="/admin/terminales/read" className="nav-link">
-                                            <i className="far fa-circle nav-icon" />
-                                            <p>Read</p>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href="/admin/terminales/update" className="nav-link">
-                                            <i className="far fa-circle nav-icon" />
-                                            <p>Update</p>
+                                            <p>Update-Delete</p>
                                         </a>
                                     </li>
                                 </ul>

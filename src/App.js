@@ -11,11 +11,11 @@ import CreateEmpresas from './components/LandingPage/Empresas/CreateEmpresas/Cre
 import DeleteEmpresas from './components/LandingPage/Empresas/DeleteEmpresas/Delete';
 import UpdateEmpresas from './components/LandingPage/Empresas/UpdateEmpresas/Update';
 import ReadEmpresas from './components/LandingPage/Empresas/ReadEmpresas/Read';
-/* Rutas Terminales */
-import CreateTerminales from './components/LandingPage/Terminales/CreateTerminales/Create';
-import DeleteTerminales from './components/LandingPage/Terminales/DeleteTerminales/Delete';
-import UpdateTerminales from './components/LandingPage/Terminales/UpdateTerminales/Update';
-import ReadTerminales from './components/LandingPage/Terminales/ReadTerminales/Read';
+/* Rutas Rutas */
+import CreateRutas from './components/LandingPage/Rutas/CreateRutas/Create';
+import DeleteRutas from './components/LandingPage/Rutas/DeleteRutas/Delete';
+import UpdateRutas from './components/LandingPage/Rutas/UpdateRutas/Update';
+import ReadRutas from './components/LandingPage/Rutas/ReadRutas/Read';
 /* Rutas Login */
 
 /* Rutas Dashboard */
@@ -40,10 +40,10 @@ function App() {
         <Route exact path='/admin/empresas/update' element={<UpdateEmpresas />} />
         <Route exact path='/admin/empresas/read' element={<ReadEmpresas />} />
         {/* Rutas Terminales */}
-        <Route exact path='/admin/terminales/create' element={<CreateTerminales />} />
-        <Route exact path='/admin/terminales/delete' element={<DeleteTerminales />} />
-        <Route exact path='/admin/terminales/update' element={<UpdateTerminales />} />
-        <Route exact path='/admin/terminales/read' element={<ReadTerminales />} />
+        <Route exact path='/admin/Rutas/create' element={<CreateRutas />} />
+        <Route exact path='/admin/Rutas/delete' element={<DeleteRutas />} />
+        <Route exact path='/admin/Rutas/update' element={<UpdateRutas />} />
+        <Route exact path='/admin/Rutas/read' element={<ReadRutas />} />
         {/* Rutas Login */}
         <Route exact path='/' element={<Login />} />
         {/* Rutas Dashboard */}
