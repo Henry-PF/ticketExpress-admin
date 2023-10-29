@@ -45,7 +45,7 @@ function App() {
         <Route exact path='/admin/Rutas/update' element={<UpdateRutas />} />
         <Route exact path='/admin/Rutas/read' element={<ReadRutas />} />
         {/* Rutas Login */}
-        <Route exact path='/' element={<Login />} />
+        <Route exact path='/login' element={<Login />} />
         {/* Rutas Dashboard */}
         <Route exact path='/admin/home' element={<Home />} />
         {/* Rutas Usuarios */}
