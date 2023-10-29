@@ -95,9 +95,9 @@ export default function Update() {
                           <td className={styles.td}>{data.Correo}</td>
                           <td className={styles.td}>{data.Telefono}</td>
                           <td className={styles.td}>{data.Cuit}</td>
-                          <td className={styles.td}><button><FontAwesomeIcon icon={faPencil} style={{ color: "#dedb2b", }} />
+                          <td className={styles.td}><button className={styles.button}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
                             </button></td>
-                          <td className={styles.td}><button><FontAwesomeIcon icon={faTrash} style={{ color: "#dd3636", }} />
+                          <td className={styles.td}><button className={styles.button}><FontAwesomeIcon icon={faTrash} style={{ color: "#dd3636", }} />
                             </button></td>
                         </tr>
                       </tbody>
