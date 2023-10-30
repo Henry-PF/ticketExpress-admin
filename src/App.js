@@ -29,6 +29,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route exact path='/' element={<Home />} />
+
         {/* Rutas Buses */}
         <Route exact path='/admin/buses/create' element={<Create />} />
         <Route exact path='/admin/buses/delete' element={<Delete />} />
