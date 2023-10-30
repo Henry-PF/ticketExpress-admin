@@ -9,6 +9,7 @@ import CreateBus from "../src/components/CreateBus/CreateBus";
 import ModifyCompany from "../src/components/ModifyCompany/ModifyCompany";
 import ModifyBus from "../src/components/ModifyBus/ModifyBus";
 import ModifyRoute from "../src/components/ModifyRoute/ModifyRoute";
+import ResetPassword from "../src/components/Login/ResetPassword/ResetPassword"
 import "./App.css";
 import Login from "./components/Login/Login";
 
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route exact path="/" element={<Selection />} />
         <Route path="/create_company" element={<CreateCompany />} />
