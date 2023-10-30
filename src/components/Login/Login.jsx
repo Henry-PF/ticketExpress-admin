@@ -39,7 +39,7 @@ const LoginPage = (props) => {
                     icon: "error",
                 });
             } else if (data.token) {
-                if (data.data && data.data.type === "admin") {
+                if (data.data && data.data.usuarios[0].type === "admin") {
                     setToken(data.token);
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("nombre", data.data.nombre);
