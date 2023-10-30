@@ -1,32 +1,57 @@
-import React from "react";
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/LandingPage/Home/Home';
+import Login from './components/Login/Login';
+/* Rutas Buses */
+import Create from './components/LandingPage/Buses/CreateBuses/Create';
+import Delete from './components/LandingPage/Buses/DeleteBuses/Delete';
+import Update from './components/LandingPage/Buses/UpdateBuses/Update';
+import Read from './components/LandingPage/Buses/ReadBuses/Read';
+/* Rutas Empresas */
+import CreateEmpresas from './components/LandingPage/Empresas/CreateEmpresas/Create';
+import DeleteEmpresas from './components/LandingPage/Empresas/DeleteEmpresas/Delete';
+import UpdateEmpresas from './components/LandingPage/Empresas/UpdateEmpresas/Update';
+import ReadEmpresas from './components/LandingPage/Empresas/ReadEmpresas/Read';
+/* Rutas Rutas */
+import CreateRutas from './components/LandingPage/Rutas/CreateRutas/Create';
+import DeleteRutas from './components/LandingPage/Rutas/DeleteRutas/Delete';
+import UpdateRutas from './components/LandingPage/Rutas/UpdateRutas/Update';
+import ReadRutas from './components/LandingPage/Rutas/ReadRutas/Read';
+/* Rutas Login */
 
-import { Route, Routes } from "react-router-dom";
-import CreateRoute from "./components/CreateRoute/CreateRoute";
+/* Rutas Dashboard */
 
-import Selection from "./components/Selection/Selection";
-import CreateCompany from "../src/components/CreateCompany/CreateCompany";
-import CreateBus from "../src/components/CreateBus/CreateBus";
-import ModifyCompany from "../src/components/ModifyCompany/ModifyCompany";
-import ModifyBus from "../src/components/ModifyBus/ModifyBus";
-import ModifyRoute from "../src/components/ModifyRoute/ModifyRoute";
-import ResetPassword from "../src/components/Login/ResetPassword/ResetPassword"
-import "./App.css";
-import Login from "./components/Login/Login";
+/* Rutas Usuarios */
+
+
+import './App.css';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route exact path='/' element={<Home />} />
 
-        <Route exact path="/" element={<Selection />} />
-        <Route path="/create_company" element={<CreateCompany />} />
-        <Route path="/create_bus" element={<CreateBus />} />
-        <Route path="/create_route" element={<CreateRoute />} />
-        <Route path="/modify_company" element={<ModifyCompany />} />
-        <Route path="/modify_bus" element={<ModifyBus />} />
-        <Route path="/modify_route" element={<ModifyRoute />} />
+        {/* Rutas Buses */}
+        <Route exact path='/admin/buses/create' element={<Create />} />
+        <Route exact path='/admin/buses/delete' element={<Delete />} />
+        <Route exact path='/admin/buses/update' element={<Update />} />
+        <Route exact path='/admin/buses/read' element={<Read />} />
+        {/* Rutas Empresas */}
+        <Route exact path='/admin/empresas/create' element={<CreateEmpresas />} />
+        <Route exact path='/admin/empresas/delete' element={<DeleteEmpresas />} />
+        <Route exact path='/admin/empresas/update' element={<UpdateEmpresas />} />
+        <Route exact path='/admin/empresas/read' element={<ReadEmpresas />} />
+        {/* Rutas Terminales */}
+        <Route exact path='/admin/Rutas/create' element={<CreateRutas />} />
+        <Route exact path='/admin/Rutas/delete' element={<DeleteRutas />} />
+        <Route exact path='/admin/Rutas/update' element={<UpdateRutas />} />
+        <Route exact path='/admin/Rutas/read' element={<ReadRutas />} />
+        {/* Rutas Login */}
+        <Route exact path='/login' element={<Login />} />
+        {/* Rutas Dashboard */}
+        <Route exact path='/admin/home' element={<Home />} />
+        {/* Rutas Usuarios */}
+        {/* <Route exact path='/admin/usuarios' element={<Usuarios />} /> */}
       </Routes>
     </div>
   );
