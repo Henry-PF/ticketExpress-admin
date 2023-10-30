@@ -11,139 +11,139 @@ const LoginPage = (props) => {
 
     // const dispatch = useDispatch();
 
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState("");
-  // const [show, setShow] = useState(false);
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
-
-
-
- const handleSubmit = async (event) => {
-  event.preventDefault();
-  const { email, password } = userData;
-
-  try {
-    const { data } = await axios.post("http://localhost:3001/auth/login", {
-      correo: email,
-      password: password,
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState("");
+    // const [show, setShow] = useState(false);
+    const [userData, setUserData] = useState({
+        email: "",
+        password: "",
     });
-    console.log(data, 'DATA');
+    const [error, setError] = useState("");
 
-    if (data.error) {
-      Swal.fire({
-        title: data.error,
-        icon: "error",
-      });
-    } else if (data.token) {
-      if (data.data && data.data.type === "admin") {
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("nombre", data.data.nombre);
-        localStorage.setItem("apellido", data.data.apellido);
-        localStorage.setItem("correo", data.data.correo);
-        window.location.reload();
 
-        // window.location.href = "/home"; 
-      } else {
-        Swal.fire({
-          title: "Acceso denegado. No eres administrador.",
-          icon: "error",
-        });
-      }
-    }
-  } catch (error) {
-    console.log('no se pudo procesar el logueo');
-  }
-};
 
-  
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const { email, password } = userData;
 
-  useEffect(() => {
-    const userData = Cookies.get("userData");
-    if (userData) {
-      const parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
-    }
-  }, []);
+        try {
+            const { data } = await axios.post("http://localhost:3001/auth/login", {
+                correo: email,
+                password: password,
+            });
+            console.log(data.data.usuarios[0].type, 'DATA');
 
-  return (
-    console.log(userData, 'USERDATA'),
-    <>
-      {/* <form className="login-form" onSubmit={handleSubmit}> */}
-      <form className="login-form">
-        <div className="d-flex align-items-center my-4">
-          <h1 className="text-center fw-normal mb-0 me-3">Sign In</h1>
-        </div>
-        {/* Email input */}
-        <div className="form-outline mb-4">
-          <label className="form-label" htmlFor="form3Example3" label="Email">
-            Email address
-          </label>
-          <input
-            type="email"
-            placeholder="Email"
-            onChange={(event) =>
-              setUserData({ ...userData, email: event.target.value })
+            if (data.error) {
+                Swal.fire({
+                    title: data.error,
+                    icon: "error",
+                });
+            } else if (data.token) {
+                if (data.data && data.data.usuarios[0].type === "admin") {
+                    setToken(data.token);
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("nombre", data.data.nombre);
+                    localStorage.setItem("apellido", data.data.apellido);
+                    localStorage.setItem("correo", data.data.correo);
+                    window.location.reload();
+
+                    // window.location.href = "/home"; 
+                } else {
+                    Swal.fire({
+                        title: "Acceso denegado. No eres administrador.",
+                        icon: "error",
+                    });
+                }
             }
-            id="form3Example3"
-            className="form-control form-control-lg"
-          />
-      {error && <p className="error">Este es un mensaje de error.</p>}
-        </div>
+        } catch (error) {
+            console.log('no se pudo procesar el logueo');
+        }
+    };
 
-        {/* Password input */}
-        <div className="form-outline mb-3">
-          <label className="form-label" htmlFor="form3Example4">
-            Password
-          </label>
-          <input
-            type="password"
-            id="form3Example4"
-            className="form-control form-control-lg"
-            placeholder="Contraseña"
-            onChange={(event) => setUserData({ ...userData, password: event.target.value })}
-          />
-        </div>
 
-        <div className="d-flex justify-content-between align-items-center">
-          {/* Checkbox */}
-          <div className="form-check mb-0">
-            <input
-              className="form-check-input me-2"
-              type="checkbox"
-              value=""
-              id="form2Example3"
-            
-            />
-            <label className="form-check-label" htmlFor="form2Example3">
-              Remember me
-            </label>
-          </div>
-          <Link to="/reset-password" className="text-body">
-            Forgot password?
-          </Link>
-        </div>
 
-        <div className="text-center text-lg-start mt-4 pt-2">
-        <Link to="/">
-        <button type="submit" className="btn btn-primary btn-lg" onClick={handleSubmit}>
-          Login
-        </button>
-      </Link>
-          <p className="small fw-bold mt-2 pt-1 mb-0">
-            Don't have an account?{" "}
-            <a href="#!" className="link-danger">
-              Register
-            </a>
-          </p>
-        </div>
-      </form>
-    </>
-  );
+    useEffect(() => {
+        const userData = Cookies.get("userData");
+        if (userData) {
+            const parsedUser = JSON.parse(userData);
+            setUser(parsedUser);
+        }
+    }, []);
+
+    return (
+        console.log(userData, 'USERDATA'),
+        <>
+            {/* <form className="login-form" onSubmit={handleSubmit}> */}
+            <form className="login-form">
+                <div className="d-flex align-items-center my-4">
+                    <h1 className="text-center fw-normal mb-0 me-3">Sign In</h1>
+                </div>
+                {/* Email input */}
+                <div className="form-outline mb-4">
+                    <label className="form-label" htmlFor="form3Example3" label="Email">
+                        Email address
+                    </label>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        onChange={(event) =>
+                            setUserData({ ...userData, email: event.target.value })
+                        }
+                        id="form3Example3"
+                        className="form-control form-control-lg"
+                    />
+                    {error && <p className="error">Este es un mensaje de error.</p>}
+                </div>
+
+                {/* Password input */}
+                <div className="form-outline mb-3">
+                    <label className="form-label" htmlFor="form3Example4">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="form3Example4"
+                        className="form-control form-control-lg"
+                        placeholder="Contraseña"
+                        onChange={(event) => setUserData({ ...userData, password: event.target.value })}
+                    />
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center">
+                    {/* Checkbox */}
+                    <div className="form-check mb-0">
+                        <input
+                            className="form-check-input me-2"
+                            type="checkbox"
+                            value=""
+                            id="form2Example3"
+
+                        />
+                        <label className="form-check-label" htmlFor="form2Example3">
+                            Remember me
+                        </label>
+                    </div>
+                    <Link to="/reset-password" className="text-body">
+                        Forgot password?
+                    </Link>
+                </div>
+
+                <div className="text-center text-lg-start mt-4 pt-2">
+                    <Link to="/">
+                        <button type="submit" className="btn btn-primary btn-lg" onClick={handleSubmit}>
+                            Login
+                        </button>
+                    </Link>
+                    <p className="small fw-bold mt-2 pt-1 mb-0">
+                        Don't have an account?{" "}
+                        <a href="#!" className="link-danger">
+                            Register
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </>
+    );
 };
 
 export default authLayout(LoginPage);
