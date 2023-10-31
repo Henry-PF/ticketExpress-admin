@@ -31,7 +31,7 @@ export default function SideBar() {
             <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css" />
             {/* Theme style */}
             <link rel="stylesheet" href="../../dist/css/adminlte.min.css" />
-            <aside className="main-sidebar sidebar-dark-primary elevation-4">
+            <aside className="main-sidebar sidebar-dark-primary elevation-4 position-fixed top-0">
                 {/* Brand Logo */}
                 <a href="/admin/home" className="brand-link">
                     <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
@@ -50,15 +50,15 @@ export default function SideBar() {
                                 </a>
                                 <ul className="nav nav-treeview">
                                     <li className="nav-item">
-                                        <a href="/admin/buses/create" className="nav-link ">
+                                        <a href="/admin/buses/update" className="nav-link">
                                             <i className="far fa-circle nav-icon" />
-                                            <p>Create</p>
+                                            <p>Panel de Control</p>
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/admin/buses/update" className="nav-link">
+                                        <a href="/admin/buses/create" className="nav-link ">
                                             <i className="far fa-circle nav-icon" />
-                                            <p>Update-Delete</p>
+                                            <p>Agregar Bus</p>
                                         </a>
                                     </li>
                                 </ul>
