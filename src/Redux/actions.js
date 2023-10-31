@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE} from './action-types'
 
 export const searchResults = (data) => {
@@ -53,15 +54,6 @@ export const userLogin = () => {
     }
 }
 
-export const userRegister = (formData) => async () => {
-    try {
-        const response = await axios.post('http://localhost:3001/usuarios', formData);
-        console.log('Registro exitoso:', response.data);
-    } catch (error) {
-        console.error('Error en el registro:', error);
-    }
-};
-
 export const getCities = () => {
     return async (dispatch) => {
         try {
@@ -95,6 +87,20 @@ export const getProvince = () => {
             const { data } = await axios.get('http://localhost:3001/provincias/get_province');
             dispatch({
                 type: GET_PROVINCE,
+                payload: data,
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+export const getBuses = () => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.get('http://localhost:3001/buses/get_buses')
+            dispatch({
+                type: GET_BUSES,
                 payload: data,
             })
         } catch (error) {
