@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE} from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES } from './action-types'
 
 export const searchResults = (data) => {
     return {
