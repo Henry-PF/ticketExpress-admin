@@ -5,18 +5,74 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Update.module.css";
 import { connect, useDispatch } from 'react-redux';
-import { getAllRutes } from '../../../../Redux/actions';
+import { getAllRutes, deleteRute} from '../../../../Redux/actions';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+
 
 function Update(props) {
   const dispatch = useDispatch();
-const allRutas = props.rutas;
+  const allRutas = props.rutas;
+  const [show, setShow] = React.useState(false);
+  const [selectedRute, setSelectedRute] = React.useState({});
 
+  const deleteOnClick = (idRutes) => {
+  if(idRutes.id_status === 1){
+     const dataToSend = { "id": idRutes.id, "id_status": 2}
+     dispatch(deleteRute(dataToSend));
+     dispatch(getAllRutes());
+     dispatch(getAllRutes());
+  } 
+  else {
+    const dataToSend = { "id": idRutes.id, "id_status": 1}
+    dispatch(deleteRute(dataToSend));
+    dispatch(getAllRutes());
+    dispatch(getAllRutes());
+  }
+  }
 
-  // const [allRutas, setAllRutas] = React.useState([...props.rutas.data]);
+  const handleClose = () => setShow(false);
+
+  const handleChange = (event) => {
+    setSelectedRute({
+      ...selectedRute,
+      [event.target.name]: event.target.value,
+    })
+  }
+  const handleSaveChange = async () => {
+    try {
+      const data = await axios.post('http://localhost:3001/rutas/update', selectedRute);
+      if (data.status === 200) {
+        Swal.fire({
+          title: data.data.message,
+          icon: 'success'
+        })
+        setShow(false);
+      } else {
+        Swal.fire({
+          title: data.data.message,
+          icon: 'error'
+        })
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  const updateOnClick = (ruteId) => {
+    const selectedRute = allRutas?.find((ruta) => ruta.id === ruteId);
+    setSelectedRute(selectedRute);
+    setShow(true);
+    console.log(selectedRute);
+  }
+
+  
 
   useEffect(() => {
     dispatch(getAllRutes());
-    console.log(props.rutas);
   },[])
   return (
     <div className="wrapper">
@@ -35,6 +91,56 @@ const allRutas = props.rutas;
           </div>
         </section>
         {/* /.content */}
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modificar Bus</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form action="" className={styles.form}>
+              <FloatingLabel controlId="floatingPassword" label="Valor del Ticket" className="w-100">
+                <Form.Control
+                  className={styles.form_input}
+                  type="number"
+                  placeholder="Valor del Ticket"
+                  name='precio'
+                  value={selectedRute.precio}
+                  onChange={(event) => handleChange(event)}
+                  required
+                />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="Horario de Llegada" className="w-100 me-2">
+                <Form.Control
+                  className={styles.form_input}
+                  type="time"
+                  placeholder="Horario de Llegada"
+                  name='hora_llegada'
+                  value={selectedRute.hora_llegada}
+                  onChange={(event) => handleChange(event)}
+                  required
+                />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="Horario de Salida" className="w-100 me-2">
+                <Form.Control
+                  className={styles.form_input}
+                  type="time"
+                  placeholder="Horario de Salida"
+                  name='hora_salida'
+                  value={selectedRute.hora_salida}
+                  onChange={(event) => handleChange(event)}
+                  required
+                />
+              </FloatingLabel>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cerrar
+            </Button>
+            <Button variant="primary" onClick={handleSaveChange}>
+              Guardar Cambios
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <section class="content">
           <div class="container-fluid">
             <div class="row">
@@ -67,10 +173,13 @@ const allRutas = props.rutas;
                           <td className={styles.td}>{data.hora_llegada}</td>
                           <td className={styles.td}>{data.fecha_salida}</td>
                           <td className={styles.td}>{data.precio}</td>
-                          <td className={styles.td}>{"Activo o inactivo"}</td>
-                          <td className={styles.td}><button className={styles.button}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
+                          <td className={styles.td}>{data.id_statud === 1 ? "Activo" : "Inactivo"}</td>
+                          <td className={styles.td}><button className={styles.button} onClick={() => updateOnClick(data.id)}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
                             </button></td>
-                          <td className={styles.td}><button className={styles.button}><FontAwesomeIcon icon={faTrash} style={{ color: "#dd3636", }} />
+                          <td className={styles.td}><button className={styles.button} onClick={() => {
+                            const idRutes = { "id": data.id, "id_status": data.id_statud};
+                            return deleteOnClick(idRutes);
+                            }}><FontAwesomeIcon icon={faTrash} style={{ color: "#dd3636", }} />
                             </button></td>
                         </tr>
                       </tbody>

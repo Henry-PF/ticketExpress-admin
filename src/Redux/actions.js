@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES} from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE} from './action-types'
 
 export const searchResults = (data) => {
     return {
@@ -14,6 +14,14 @@ export const createRoute = (formData) => async () => {
         console.log('Registro exitoso:', response.data);
     } catch (error) {
         console.error('Error en el registro:', error);
+    }
+};
+export const deleteRute = (idRutes) => async () => {
+    try {
+        const response = await axios.post('http://localhost:3001/rutas/delete', idRutes);
+        console.log(response);
+    } catch (error) {
+        console.error('Error en el borrado:', error);
     }
 };
 export const getAllRutes = () => {
