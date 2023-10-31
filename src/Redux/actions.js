@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN } from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_ALL_COMPANIES } from './action-types'
 
 export const searchResults = (data) => {
     return {
@@ -56,6 +56,20 @@ export const getProvince = () => {
             })
         } catch (error) {
             console.error(error);
+        }
+    }
+}
+
+export const getAllCompanies = () => {
+    return async(dispatch) => {
+        try{
+            const { data } = await axios.get('http://localhost:3001/empresas/get');
+            dispatch({
+                type: GET_ALL_COMPANIES,
+                payload: data
+            })
+        }catch (error){
+            console.log(error);
         }
     }
 }
