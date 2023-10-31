@@ -1,58 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../../Home/Graficos/SideBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Update.module.css";
+import { connect, useDispatch } from 'react-redux';
+import { getAllRutes } from '../../../../Redux/actions';
 
-export default function Update() {
-
-
-  const dataMokeada = [{
-    CiudadDeOrigen: "Model1",
-    CiudadDeDestino: "Volvo",
-    HorarioDeSalida: "1",
-    HorarioDeLlegada: "1",
-    Empresa: "100",
-    ValorDeTicket: "34",
-},{
-  CiudadDeOrigen: "Model1",
-  CiudadDeDestino: "Volvo",
-  HorarioDeSalida: "1",
-  HorarioDeLlegada: "1",
-  Empresa: "100",
-  ValorDeTicket: "34",
-},{
-  CiudadDeOrigen: "Model1",
-  CiudadDeDestino: "Volvo",
-  HorarioDeSalida: "1",
-  HorarioDeLlegada: "1",
-  Empresa: "100",
-  ValorDeTicket: "34",
-},{
-  CiudadDeOrigen: "Model1",
-  CiudadDeDestino: "Volvo",
-  HorarioDeSalida: "1",
-  HorarioDeLlegada: "1",
-  Empresa: "100",
-  ValorDeTicket: "34",
-},{
-  CiudadDeOrigen: "Model1",
-  CiudadDeDestino: "Volvo",
-  HorarioDeSalida: "1",
-  HorarioDeLlegada: "1",
-  Empresa: "100",
-  ValorDeTicket: "34",
-},{
-  CiudadDeOrigen: "Model1",
-  CiudadDeDestino: "Volvo",
-  HorarioDeSalida: "1",
-  HorarioDeLlegada: "1",
-  Empresa: "100",
-  ValorDeTicket: "34",
-},]
+function Update(props) {
+  const dispatch = useDispatch();
+const allRutas = props.rutas;
 
 
+  // const [allRutas, setAllRutas] = React.useState([...props.rutas.data]);
+
+  useEffect(() => {
+    dispatch(getAllRutes());
+    console.log(props.rutas);
+  },[])
   return (
     <div className="wrapper">
       {/* Main Sidebar Container */}
@@ -86,21 +51,23 @@ export default function Update() {
                             <th className={styles.th}>Ciudad de Destino</th>
                             <th className={styles.th}>Hora de Salida</th>
                             <th className={styles.th}>Hora de Llegada</th>
-                            <th className={styles.th}>Empresa</th>
+                            <th className={styles.th}>Fecha de salida</th>
                             <th className={styles.th}>Valor del Ticket</th>
+                            <th className={styles.th}>Status</th>
                             <th className={styles.th}>Editar</th>
                             <th className={styles.th}>Eliminar</th>
                         </tr>
                       </thead>
-                      {dataMokeada.map ( (data) => {
+                      {allRutas.map ( (data) => {
                         return <tbody>
                         <tr>
-                          <td className={styles.td}>{data.CiudadDeOrigen}</td>
-                          <td className={styles.td}>{data.CiudadDeDestino}</td>
-                          <td className={styles.td}>{data.HorarioDeSalida}</td>
-                          <td className={styles.td}>{data.HorarioDeLlegada}</td>
-                          <td className={styles.td}>{data.Empresa}</td>
-                          <td className={styles.td}>{data.ValorDeTicket}</td>
+                          <td className={styles.td}>{data.origen}</td>
+                          <td className={styles.td}>{data.destino}</td>
+                          <td className={styles.td}>{data.hora_salida}</td>
+                          <td className={styles.td}>{data.hora_llegada}</td>
+                          <td className={styles.td}>{data.fecha_salida}</td>
+                          <td className={styles.td}>{data.precio}</td>
+                          <td className={styles.td}>{"Activo o inactivo"}</td>
                           <td className={styles.td}><button className={styles.button}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
                             </button></td>
                           <td className={styles.td}><button className={styles.button}><FontAwesomeIcon icon={faTrash} style={{ color: "#dd3636", }} />
@@ -128,3 +95,11 @@ export default function Update() {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    rutas: state.trips
+  };
+}
+
+export default connect(mapStateToProps, null)(Update)
