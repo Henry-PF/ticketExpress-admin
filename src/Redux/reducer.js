@@ -6,8 +6,10 @@ const initialState = {
     province: [],
     buses: [],
     userGoogle: {},
+    companies: [],
     terminales: [],
     trips: [],
+
 };
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -46,6 +48,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 province: action.payload,
             }
+
+        case GET_ALL_COMPANIES:
+            return {
+                ...state,
+                companies: action.payload,
+}
         case GET_BUSES:
             return {
                 ...state,
