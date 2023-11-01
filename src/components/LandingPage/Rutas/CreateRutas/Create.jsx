@@ -1,4 +1,4 @@
-import { getTerminales, createRoute, getCities} from '../../../../Redux/actions';
+import { getTerminales, createRoute, getCities } from '../../../../Redux/actions';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,6 +26,7 @@ function Create(props) {
     origen: '',
     destino: '',
     fecha_salida: '',
+    fecha_llegada: '',
     hora_salida: '',
     hora_llegada: '',
     precio: 0,
@@ -33,8 +34,8 @@ function Create(props) {
 
   // console.log(dataRoutes);
 
-  const [startDate, setStartDate] = useState(null);
-  const [returnDate, setReturnDate] = useState(null);
+  const [fechaSalida, setFechaSalida] = useState(null);
+  const [fechaLlegada, setFechaLlegada] = useState(null);
 
   const onSubmit = (values, actions) => {
     const formData = new FormData();
@@ -43,6 +44,7 @@ function Create(props) {
       origen: dataRoutes.origen,
       destino: dataRoutes.destino,
       fecha_salida: dataRoutes.fecha_salida,
+      fecha_llegada: dataRoutes.fecha_llegada,
       hora_salida: values.hora_salida,
       hora_llegada: values.hora_llegada,
       precio: values.precio,
@@ -59,6 +61,7 @@ function Create(props) {
       origen: "",
       destino: "",
       fecha_salida: "",
+      fecha_llegada: "",
       hora_llegada: "",
       hora_salida: "",
       precio: 0,
@@ -69,10 +72,15 @@ function Create(props) {
     onSubmit
   });
 
-  const handleDate = (date) => {
+  const handleFechaSalida = (date) => {
     const formatDate = date.toLocaleDateString().split('T')[0];;
-    setStartDate(date)
+    setFechaSalida(date)
     setDataRoutes({ ...dataRoutes, fecha_salida: formatDate })
+  }
+  const handleFechaLlegada = (date) => {
+    const formatDate = date.toLocaleDateString().split('T')[0];;
+    setFechaLlegada(date)
+    setDataRoutes({ ...dataRoutes, fecha_llegada: formatDate })
   }
 
   useEffect(() => {
@@ -100,8 +108,81 @@ function Create(props) {
         {/* /.content */}
         <Form className={styles.container} onSubmit={handleSubmit}>
           <div className={styles.input_container}>
+            <Form.Group className={styles.formGroup} controlId="formBasicEmail">
+              <Form.Label className='text-black'>Ciudad de Origen</Form.Label>
+              <Select
+                className={styles.form_input}
+                isClearable
+                options={data?.map(city => ({
+                  value: city.id,
+                  label: city.nombre,
+                }))}
+                placeholder='Ciudad de Origen'
+                onChange={(selectedOption) => {
+                  if (selectedOption) {
+                    setDataRoutes({ ...dataRoutes, origen: selectedOption.value });
+                  } else {
+                    setDataRoutes({ ...dataRoutes, origen: '' });
+                  }
+                }}
+                required
+              />
+            </Form.Group>
+            <Form.Group className={styles.formGroup} controlId="formBasicEmail">
+              <Form.Label className='text-black'>Ciudad de Destino</Form.Label>
+              <Select
+                className={styles.form_input}
+                isClearable
+                options={data?.map(city => ({
+                  value: city.id,
+                  label: city.nombre
+                }))}
+                placeholder='Ciudad de Destino'
+                onChange={(selectedOption) => {
+                  if (selectedOption) {
+                    setDataRoutes({ ...dataRoutes, destino: selectedOption.value });
+                  } else {
+                    setDataRoutes({ ...dataRoutes, destino: '' });
+                  }
+                }}
+                required
+              />
+            </Form.Group>
             <div className={styles.input_name}>
-              <FloatingLabel controlId="floatingPassword" label="Horario de Salida" className="w-100 me-2">
+              <Form.Group className={styles.formGroup} >
+                <Form.Label className='text-black'>Fecha de Salida</Form.Label>
+                <DatePicker
+                  className={styles.select}
+                  selected={fechaSalida}
+                  onChange={(date) => handleFechaSalida(date)}
+                  minDate={new Date()}
+                  // maxDate={addMonths(new Date(), 1)}
+                  name='fecha_salida'
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText='Fecha de Salida'
+                  showDisabledMonthNavigation
+                  required
+                />
+              </Form.Group>
+              <Form.Group className={styles.formGroup} >
+                <Form.Label className='text-black'>Fecha de Llegada</Form.Label>
+                <DatePicker
+                  className={styles.select}
+                  selected={fechaLlegada}
+                  onChange={(date) => handleFechaLlegada(date)}
+                  minDate={new Date()}
+                  // maxDate={addMonths(new Date(), 1)}
+                  name='fecha_llegada'
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText='Fecha de Llegada'
+                  showDisabledMonthNavigation
+                  required
+                />
+              </Form.Group>
+            </div>
+            <div className={styles.input_name}>
+              <Form.Group className={styles.formGroup} controlId="formBasicPassword">
+                <Form.Label className='text-black'>Horario de Llegada</Form.Label>
                 <Form.Control
                   className={styles.form_input}
                   type="time"
@@ -111,8 +192,10 @@ function Create(props) {
                   onChange={handleChange}
                   required
                 />
-              </FloatingLabel>
-              <FloatingLabel controlId="floatingPassword" label="Horario de Llegada" className="w-100 me-2">
+              </Form.Group>
+
+              <Form.Group className={styles.formGroup} controlId="formBasicPassword">
+                <Form.Label className='text-black w-100'>Horario de Llegada</Form.Label>
                 <Form.Control
                   className={styles.form_input}
                   type="time"
@@ -122,7 +205,7 @@ function Create(props) {
                   onChange={handleChange}
                   required
                 />
-              </FloatingLabel>
+              </Form.Group>
             </div>
             <div className={styles.input_name}>
               <FloatingLabel controlId="floatingPassword" label="Valor del Ticket" className="w-100">
@@ -137,81 +220,26 @@ function Create(props) {
                 />
               </FloatingLabel>
             </div>
-            <div className={styles.input_name}>
-            <Form.Group className={styles.formGroup} controlId="formBasicEmail">
-                <Form.Label className='text-black'>Ciudad de Origen</Form.Label>
-                <Select
-                  className={styles.form_input}
-                  isClearable
-                  options={data?.map(city => ({
-                    value: city.id,
-                    label: city.nombre,
-                  }))}
-                  placeholder='Ciudad de Origen'
-                  onChange={(selectedOption) => {
-                    console.log(selectedOption.value);
-                    if (selectedOption) {
-                      setDataRoutes({ ...dataRoutes, origen: selectedOption.value });
-                    } else {
-                      setDataRoutes({ ...dataRoutes, origen: '' });
-                    }
-                  }}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className={styles.formGroup} controlId="formBasicEmail">
-                <Form.Label className='text-black'>Ciudad de Destino</Form.Label>
-                <Select
-                  className={styles.form_input}
-                  isClearable
-                  options={data?.map(city => ({
-                    value: city.id,
-                    label: city.nombre
-                  }))}
-                  placeholder='Ciudad de Destino'
-                  onChange={(selectedOption) => {
-                    if (selectedOption) {
-                      setDataRoutes({ ...dataRoutes, destino: selectedOption.value });
-                    } else {
-                      setDataRoutes({ ...dataRoutes, destino: '' });
-                    }
-                  }}
-                  required
-                />
-              </Form.Group>
-            </div>
-            <div className={styles.input_name}>
-            <Form.Group className={styles.formGroup} controlId="formBasicPassword">
-                <Form.Label className='text-black'></Form.Label>
-                <DatePicker
-                  className={styles.select}
-                  selected={startDate}
-                  onChange={(date) => handleDate(date)}
-                  minDate={new Date()}
-                  // maxDate={addMonths(new Date(), 1)}
-                  dateFormat="dd/MM/yyyy"
-                  placeholderText='Fecha de Salida'
-                  showDisabledMonthNavigation
-                  required
-                />
-              </Form.Group>
-            </div>
+
+
+
+
             <Button className='w-100 my-4' variant="primary" type="submit">
               Crear Ruta
             </Button>
           </div>
         </Form>
-      </div>
+      </div >
       {/* /.content-wrapper */}
-      <footer className="main-footer">
+      < footer className="main-footer" >
 
-      </footer>
+      </footer >
       {/* Control Sidebar */}
-      <aside className="control-sidebar control-sidebar-dark">
+      < aside className="control-sidebar control-sidebar-dark" >
         {/* Control sidebar content goes here */}
-      </aside>
+      </aside >
       {/* /.control-sidebar */}
-    </div>
+    </div >
   )
 }
 

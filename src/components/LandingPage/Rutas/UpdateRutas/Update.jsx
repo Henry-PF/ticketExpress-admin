@@ -64,12 +64,11 @@ function Update(props) {
     const selectedRute = allRutas?.find((ruta) => ruta.id === ruteId);
     setSelectedRute(selectedRute);
     setShow(true);
-    console.log(selectedRute);
   }
 
   useEffect(() => {
     dispatch(getAllRutes());
-  }, []);
+  }, [dispatch, show]);
 
   return (
     <div className="wrapper">
@@ -155,6 +154,7 @@ function Update(props) {
                           <th className={styles.th}>Hora de Salida</th>
                           <th className={styles.th}>Hora de Llegada</th>
                           <th className={styles.th}>Fecha de salida</th>
+                          <th className={styles.th}>Fecha de Llegada</th>
                           <th className={styles.th}>Valor del Ticket</th>
                           <th className={styles.th}>Status</th>
                           <th className={styles.th}>Editar</th>
@@ -166,9 +166,10 @@ function Update(props) {
                           <tr>
                             <td className={styles.td}>{data.origen}</td>
                             <td className={styles.td}>{data.destino}</td>
+                            <td className={styles.td}>{data.fecha_salida}</td>
+                            <td className={styles.td}>{data.fecha_llegada}</td>
                             <td className={styles.td}>{data.hora_salida}</td>
                             <td className={styles.td}>{data.hora_llegada}</td>
-                            <td className={styles.td}>{data.fecha_salida}</td>
                             <td className={styles.td}>{data.precio}</td>
                             <td className={styles.td}>{data.id_statud === 1 ? "Activo" : "Inactivo"}</td>
                             <td className={styles.td}><button className={styles.button} onClick={() => updateOnClick(data.id)}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
