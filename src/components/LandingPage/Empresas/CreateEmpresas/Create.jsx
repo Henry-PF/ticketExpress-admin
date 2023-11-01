@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import SideBar from '../../Home/Graficos/SideBar';
 import styles from "./Create.module.css";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -8,7 +8,9 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 
 export default function Create() {
-  const { datos, setDatos } = useState({nombre: '', direccion: '', cuit: '', telefono: '', correo: ''});
+
+  const [datos, setDatos] = useState({});
+
   const handleChange = (event) => {
     setDatos({
       ...datos,
@@ -18,23 +20,23 @@ export default function Create() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try{
+    try {
       const { data } = await axios.post('http://localhost:3001/empresas/create', datos);
-      if(data) {
+      if (data) {
         Swal.fire(
           'Empresa Creada!',
           'La Empresa fue creada exitosamente!',
           'succes'
         ).then(() => setDatos({
-            nombre:'',
-            correo:'',
-            cuit:'',
-            direccion:'',
-            telefono:'',
-            id_statud:'',
+          nombre: '',
+          correo: '',
+          cuit: '',
+          direccion: '',
+          telefono: '',
+          id_statud: '',
         }))
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
   }
@@ -57,84 +59,84 @@ export default function Create() {
         </section>
         {/* /.content */}
         <section class="content-header">
-            <h1 className='text-center m-5'>Crear Empresa</h1>
-            <Form className={styles.container} onSubmit={handleSubmit}>
-                <div className={styles.input_container}>
-                    <div className={styles.input_name}>
-                        <FloatingLabel controlId="floatingInput" label="Nombre" className="w-100 me-2">
-                            <Form.Control
-                                className={styles.form_input}
-                                type="text"
-                                placeholder="Nombre"
-                                name='nombre'
-                                value={datos.nombre}
-                                onChange={event => handleChange(event)}
+          <h1 className='text-center m-5'>Crear Empresa</h1>
+          <Form className={styles.container} onSubmit={handleSubmit}>
+            <div className={styles.input_container}>
+              <div className={styles.input_name}>
+                <FloatingLabel controlId="floatingInput" label="Nombre" className="w-100 me-2">
+                  <Form.Control
+                    className={styles.form_input}
+                    type="text"
+                    placeholder="Nombre"
+                    name='nombre'
+                    value={datos.dato?.nombre}
+                    onChange={event => handleChange(event)}
 
-                            />
-                        </FloatingLabel>
-                        <FloatingLabel controlId="floatingInput" label="Direccion" className="w-100 me-2">
-                            <Form.Control
-                                className={styles.form_input}
-                                type="text"
-                                placeholder="Direccion"
-                                name='direccion'
-                                value={datos.direccion}
-                                onChange={event => handleChange(event)}
-                            />
-                        </FloatingLabel>
-                    </div>
-                    <div className={styles.input_name}>
-                        <FloatingLabel controlId="floatingInput" label="Correo Electronico" className="w-100 me-2">
-                            <Form.Control
-                                className={styles.form_input}
-                                type="email"
-                                placeholder="Correo Electronico"
-                                name='correo'
-                                value={datos.correo}
-                                onChange={event => handleChange(event)}
-                            />
-                        </FloatingLabel>
-                        <FloatingLabel controlId="floatingInput" label="Telefono" className="w-100 me-2">
-                            <Form.Control
-                                className={styles.form_input}
-                                type="number"
-                                placeholder="Numero de Telefono"
-                                name='telefono'
-                                value={datos.telefono}
-                                onChange={event => handleChange(event)}
-                            />
-                        </FloatingLabel>
-                    </div>
-                    <div className={styles.input_name}>
-                        <FloatingLabel controlId="floatingInput" label="CUIT" className="w-100 me-6">
-                            <Form.Control
-                                className={styles.form_input}
-                                type="number"
-                                placeholder="CUIT"
-                                name='cuit'
-                                value={datos.cuit}
-                                onChange={event => handleChange(event)}
-                            />
-                        </FloatingLabel>
-                    </div>
+                  />
+                </FloatingLabel>
+                <FloatingLabel controlId="floatingInput" label="Direccion" className="w-100 me-2">
+                  <Form.Control
+                    className={styles.form_input}
+                    type="text"
+                    placeholder="Direccion"
+                    name='direccion'
+                    value={datos.dato?.direccion}
+                    onChange={event => handleChange(event)}
+                  />
+                </FloatingLabel>
+              </div>
+              <div className={styles.input_name}>
+                <FloatingLabel controlId="floatingInput" label="Correo Electronico" className="w-100 me-2">
+                  <Form.Control
+                    className={styles.form_input}
+                    type="email"
+                    placeholder="Correo Electronico"
+                    name='correo'
+                    value={datos.dato?.correo}
+                    onChange={event => handleChange(event)}
+                  />
+                </FloatingLabel>
+                <FloatingLabel controlId="floatingInput" label="Telefono" className="w-100 me-2">
+                  <Form.Control
+                    className={styles.form_input}
+                    type="number"
+                    placeholder="Numero de Telefono"
+                    name='telefono'
+                    value={datos.dato?.telefono}
+                    onChange={event => handleChange(event)}
+                  />
+                </FloatingLabel>
+              </div>
+              <div className={styles.input_name}>
+                <FloatingLabel controlId="floatingInput" label="CUIT" className="w-100 me-6">
+                  <Form.Control
+                    className={styles.form_input}
+                    type="number"
+                    placeholder="CUIT"
+                    name='cuit'
+                    value={datos.dato?.cuit}
+                    onChange={event => handleChange(event)}
+                  />
+                </FloatingLabel>
+              </div>
 
-                    <div className={styles.input_name}>
-                        <FloatingLabel controlId="floatingInput" label="Estado" className="w-100" >
-                            <Form.Select aria-label="Default select example" value={datos.id_statud} name='id_statud' onChange={event => handleChange(event)}>
-                                  <option>Selecciones un estado</option>
-                                  <option value="1">ACTIVO</option>
-                                  <option value="2">INACTIVO</option>
-                            </Form.Select>
-                        </FloatingLabel>
-                      </div>
-                    <Button className='w-100 my-4' variant="primary" type="submit">
-                        Crear Empresa
-                    </Button>
-                </div>
-            </Form>
-            <div className={styles.botonBack}>
-                <a href="/" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
+              <div className={styles.input_name}>
+                <FloatingLabel controlId="floatingInput" label="Estado" className="w-100" >
+                  <Form.Select aria-label="Default select example" value={datos.id_statud} name='id_statud' onChange={event => handleChange(event)}>
+                    <option>Selecciones un estado</option>
+                    <option value="1">ACTIVO</option>
+                    <option value="2">INACTIVO</option>
+                  </Form.Select>
+                </FloatingLabel>
+              </div>
+              <Button className='w-100 my-4' variant="primary" type="submit">
+                Crear Empresa
+              </Button>
             </div>
+          </Form>
+          <div className={styles.botonBack}>
+            <a href="/" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
+          </div>
         </section>
       </div>
       {/* /.content-wrapper */}

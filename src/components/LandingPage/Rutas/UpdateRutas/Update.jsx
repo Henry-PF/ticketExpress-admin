@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Update.module.css";
-import { connect, useDispatch } from 'react-redux';
-import { getAllRutes, deleteRute} from '../../../../Redux/actions';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { getAllRutes, deleteRute } from '../../../../Redux/actions';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
@@ -21,18 +21,16 @@ function Update(props) {
   const [selectedRute, setSelectedRute] = React.useState({});
 
   const deleteOnClick = (idRutes) => {
-  if(idRutes.id_status === 1){
-     const dataToSend = { "id": idRutes.id, "id_status": 2}
-     dispatch(deleteRute(dataToSend));
-     dispatch(getAllRutes());
-     dispatch(getAllRutes());
-  } 
-  else {
-    const dataToSend = { "id": idRutes.id, "id_status": 1}
-    dispatch(deleteRute(dataToSend));
-    dispatch(getAllRutes());
-    dispatch(getAllRutes());
-  }
+    if (idRutes.id_status === 1) {
+      const dataToSend = { "id": idRutes.id, "id_status": 2 }
+      dispatch(deleteRute(dataToSend));
+      dispatch(getAllRutes());
+    }
+    else {
+      const dataToSend = { "id": idRutes.id, "id_status": 1 }
+      dispatch(deleteRute(dataToSend));
+      dispatch(getAllRutes());
+    }
   }
 
   const handleClose = () => setShow(false);
@@ -69,11 +67,10 @@ function Update(props) {
     console.log(selectedRute);
   }
 
-  
-
   useEffect(() => {
     dispatch(getAllRutes());
-  },[])
+  }, []);
+
   return (
     <div className="wrapper">
       {/* Main Sidebar Container */}
@@ -152,37 +149,37 @@ function Update(props) {
                   <div class="card-body">
                     <table id="example2" class="table table-bordered table-hover">
                       <thead>
-                      <tr>
-                            <th className={styles.th}>Ciudad de Origen</th>
-                            <th className={styles.th}>Ciudad de Destino</th>
-                            <th className={styles.th}>Hora de Salida</th>
-                            <th className={styles.th}>Hora de Llegada</th>
-                            <th className={styles.th}>Fecha de salida</th>
-                            <th className={styles.th}>Valor del Ticket</th>
-                            <th className={styles.th}>Status</th>
-                            <th className={styles.th}>Editar</th>
-                            <th className={styles.th}>Eliminar</th>
+                        <tr>
+                          <th className={styles.th}>Ciudad de Origen</th>
+                          <th className={styles.th}>Ciudad de Destino</th>
+                          <th className={styles.th}>Hora de Salida</th>
+                          <th className={styles.th}>Hora de Llegada</th>
+                          <th className={styles.th}>Fecha de salida</th>
+                          <th className={styles.th}>Valor del Ticket</th>
+                          <th className={styles.th}>Status</th>
+                          <th className={styles.th}>Editar</th>
+                          <th className={styles.th}>Eliminar</th>
                         </tr>
                       </thead>
-                      {allRutas.map ( (data) => {
+                      {allRutas?.map((data) => {
                         return <tbody>
-                        <tr>
-                          <td className={styles.td}>{data.origen}</td>
-                          <td className={styles.td}>{data.destino}</td>
-                          <td className={styles.td}>{data.hora_salida}</td>
-                          <td className={styles.td}>{data.hora_llegada}</td>
-                          <td className={styles.td}>{data.fecha_salida}</td>
-                          <td className={styles.td}>{data.precio}</td>
-                          <td className={styles.td}>{data.id_statud === 1 ? "Activo" : "Inactivo"}</td>
-                          <td className={styles.td}><button className={styles.button} onClick={() => updateOnClick(data.id)}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
+                          <tr>
+                            <td className={styles.td}>{data.origen}</td>
+                            <td className={styles.td}>{data.destino}</td>
+                            <td className={styles.td}>{data.hora_salida}</td>
+                            <td className={styles.td}>{data.hora_llegada}</td>
+                            <td className={styles.td}>{data.fecha_salida}</td>
+                            <td className={styles.td}>{data.precio}</td>
+                            <td className={styles.td}>{data.id_statud === 1 ? "Activo" : "Inactivo"}</td>
+                            <td className={styles.td}><button className={styles.button} onClick={() => updateOnClick(data.id)}><FontAwesomeIcon icon={faPencil} style={{ color: "#a1a1a1cc", }} />
                             </button></td>
-                          <td className={styles.td}><button className={styles.button} onClick={() => {
-                            const idRutes = { "id": data.id, "id_status": data.id_statud};
-                            return deleteOnClick(idRutes);
+                            <td className={styles.td}><button className={styles.button} onClick={() => {
+                              const idRutes = { "id": data.id, "id_status": data.id_statud };
+                              return deleteOnClick(idRutes);
                             }}><FontAwesomeIcon icon={faTrash} style={{ color: "#dd3636", }} />
                             </button></td>
-                        </tr>
-                      </tbody>
+                          </tr>
+                        </tbody>
                       })}
                     </table>
                   </div>

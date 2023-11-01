@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES } from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES, GET_ALL_COMPANIES } from './action-types'
 
 export const searchResults = (data) => {
     return {
@@ -28,6 +28,7 @@ export const getAllRutes = () => {
     return async (dispatch) => {
         try {
             const { data } = await axios.get('http://localhost:3001/rutas/getAll');
+            console.log(data);
             dispatch({
                 type: GET_ALL_RUTES,
                 payload: data.data
@@ -95,15 +96,18 @@ export const getProvince = () => {
 }
 
 export const getAllCompanies = () => {
-    return async(dispatch) => {
-        try{
+    return async (dispatch) => {
+        try {
             const { data } = await axios.get('http://localhost:3001/empresas/get');
             dispatch({
                 type: GET_ALL_COMPANIES,
                 payload: data
             })
-        }catch (error){
+        } catch (error) {
             console.log(error);
+        }
+    }
+}
 
 export const getBuses = () => {
     return async (dispatch) => {

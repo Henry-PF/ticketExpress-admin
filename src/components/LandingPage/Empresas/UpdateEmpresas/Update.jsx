@@ -33,35 +33,38 @@ export default function Update() {
     setShow(true);
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event, field) => {
     setSelectedCompany({
       ...selectedCompany,
-      [event.target.name]: event.target.value,
-    })
+      [field]: {
+        ...selectedCompany[field],
+        [event.target.name]: event.target.value,
+      },
+    });
   }
 
   const handleSaveChanges = async () => {
-    try{
-      const data = await axios.put('http://localhost:3001/empresas/update', selectedCompany);
-      if(data.status === 200){
+    try {
+      const data = await axios.put('http://localhost:3001/empresas/update', selectedCompany.dato);
+      if (data.status === 200) {
         Swal.fire({
           title: data.data.message,
-          icon: 'succes'
+          icon: 'success'
         })
         setShow(false);
-      }else{
+      } else {
         Swal.fire({
-          title:data.data.message,
+          title: data.data.message,
           icon: 'error'
         })
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
   }
 
   const handleDelete = async (id) => {
-    try{
+    try {
       Swal.fire({
         title: 'Esta Seguro?',
         text: 'Deshabilitar este sevicio',
@@ -71,7 +74,7 @@ export default function Update() {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si, deshabilitar!'
       }).then((result) => {
-        if(result.isConfirmed) {
+        if (result.isConfirmed) {
           const { data } = axios.put(`http://localhost:3001/empresas/delete/${id}/2`);
           Swal.fire(
             'Servicio Deshabilitado!',
@@ -79,9 +82,10 @@ export default function Update() {
             'success'
           ).then(() => {
             window.location.reload();
-      });
-    }})
-    }catch(error){
+          });
+        }
+      })
+    } catch (error) {
       console.log(error);
     }
   }
@@ -98,7 +102,7 @@ export default function Update() {
         confirmButtonText: 'Si, habilitar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          const { data } = axios.put(`http://localhost:3001/empresa/delete/${id}/1`);
+          const { data } = axios.put(`http://localhost:3001/empresas/delete/${id}/1`);
           Swal.fire(
             'Servicio Habilitado!',
             'El Servicio fue habilidato exitosamente.',
@@ -142,7 +146,7 @@ export default function Update() {
   useEffect(() => {
     dispatch(getAllCompanies())
   }, [dispatch, show]);
-  
+
 
   return (
     <div className="wrapper">
@@ -173,8 +177,8 @@ export default function Update() {
                 <input
                   type="text"
                   name='nombre'
-                  value={selectedCompany.nombre}
-                  onChange={(event) => handleChange(event)}
+                  value={selectedCompany.dato?.nombre}
+                  onChange={(event) => handleChange(event, 'dato')}
                 />
               </div>
               <div className={styles.input}>
@@ -182,17 +186,17 @@ export default function Update() {
                 <input
                   type="text"
                   name='direccion'
-                  value={selectedCompany.direccion}
-                  onChange={(event) => handleChange(event)}
+                  value={selectedCompany.dato?.direccion}
+                  onChange={(event) => handleChange(event, 'dato')}
                 />
               </div>
               <div className={styles.input}>
                 <label>Correo Electronico</label>
                 <input
                   type="text"
-                  name='corre'
-                  value={selectedCompany.correo}
-                  onChange={(event) => handleChange(event)}
+                  name='correo'
+                  value={selectedCompany.dato?.correo}
+                  onChange={(event) => handleChange(event, 'dato')}
                 />
               </div>
               <div className={styles.input}>
@@ -200,8 +204,8 @@ export default function Update() {
                 <input
                   type="text"
                   name='telefono'
-                  value={selectedCompany.telefono}
-                  onChange={(event) => handleChange(event)}
+                  value={selectedCompany.dato?.telefono}
+                  onChange={(event) => handleChange(event, 'dato')}
                 />
               </div>
               <div className={styles.input}>
@@ -209,8 +213,8 @@ export default function Update() {
                 <input
                   type="text"
                   name='cuit'
-                  value={selectedCompany.cuit}
-                  onChange={(event) => handleChange(event)}
+                  value={selectedCompany.dato?.cuit}
+                  onChange={(event) => handleChange(event, 'dato')}
                 />
               </div>
             </form>
@@ -267,11 +271,11 @@ export default function Update() {
                           return <tbody key={index}>
                             <tr>
                               <td className={styles.td}>{index + 1}</td>
-                              <td className={styles.td}>{company.nombre}</td>
-                              <td className={styles.td}>{company.direccion}</td>
-                              <td className={styles.td}>{company.correo}</td>
-                              <td className={styles.td}>{company.telefono}</td>
-                              <td className={styles.td}>{company.cuit}</td>
+                              <td className={styles.td}>{company.dato.nombre}</td>
+                              <td className={styles.td}>{company.dato.direccion}</td>
+                              <td className={styles.td}>{company.dato.correo}</td>
+                              <td className={styles.td}>{company.dato.telefono}</td>
+                              <td className={styles.td}>{company.dato.cuit}</td>
                               <td className={company.statud.id === 1 ? styles.activo : styles.inactivo}>{company.statud.nombre}</td>
                               <td className={styles.td}>
                                 <button className={styles.button} onClick={() => handleClickEdit(company.id)} disabled={company.statud.id !== 1}>
