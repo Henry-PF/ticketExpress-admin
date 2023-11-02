@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES, GET_ALL_COMPANIES } from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES, GET_ALL_COMPANIES, GET_ALL_USERS} from './action-types'
 
 export const searchResults = (data) => {
     return {
@@ -24,13 +24,34 @@ export const deleteRute = (idRutes) => async () => {
         console.error('Error en el borrado:', error);
     }
 };
+export const deleteUsers = (iduser) => async () => {
+    try {
+        const response = await axios.post('http://localhost:3001/usuarios/delete', iduser);
+        console.log(response);
+    } catch (error) {
+        console.error('Error en el borrado:', error);
+    }
+};
 export const getAllRutes = () => {
     return async (dispatch) => {
         try {
             const { data } = await axios.get('http://localhost:3001/rutas/getAll');
-            console.log(data);
             dispatch({
                 type: GET_ALL_RUTES,
+                payload: data.data
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+};
+export const getAllUsers = () => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.get('http://localhost:3001/usuarios/getAll');
+            console.log(data);
+            dispatch({
+                type: GET_ALL_USERS,
                 payload: data.data
             })
         } catch (error) {

@@ -60,6 +60,7 @@ function Update(props) {
       console.error(error);
     }
   }
+  
   const updateOnClick = (ruteId) => {
     const selectedRute = allRutas?.find((ruta) => ruta.id === ruteId);
     setSelectedRute(selectedRute);
