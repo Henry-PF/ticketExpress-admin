@@ -1,4 +1,4 @@
-import { getTerminales, createRoute, getCities } from '../../../../Redux/actions';
+import { getTerminales, createRoute, getCities, getBuses } from '../../../../Redux/actions';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,8 +15,9 @@ import Swal from 'sweetalert2';
 
 function Create(props) {
   const dispatch = useDispatch()
+  const route = useSelector(state => state.route)
+  const buses = useSelector(state => state.buses)
   const cities = props.terminales;
-
   let data = [];
 
   if (cities) {
@@ -31,15 +32,17 @@ function Create(props) {
     hora_salida: '',
     hora_llegada: '',
     precio: 0,
+    bus: 0,
+    capacidad: 0
   });
-
-  // console.log(dataRoutes);
 
   const [fechaSalida, setFechaSalida] = useState(null);
   const [fechaLlegada, setFechaLlegada] = useState(null);
 
   const onSubmit = (values, actions) => {
     const formData = new FormData();
+
+    const capacidad = buses.data?.filter((bus) => bus.id === dataRoutes.bus)
 
     const dataRoute = {
       origen: dataRoutes.origen,
@@ -49,7 +52,9 @@ function Create(props) {
       hora_salida: values.hora_salida,
       hora_llegada: values.hora_llegada,
       precio: values.precio,
-      statud: 1
+      statud: 1,
+      bus: dataRoutes.bus,
+      capacidad: capacidad[0].capacidad,
     }
     // formData.append('data', JSON.stringify(dataRoute));
     dispatch(createRoute(dataRoute));
@@ -79,6 +84,7 @@ function Create(props) {
       hora_llegada: "",
       hora_salida: "",
       precio: 0,
+      bus: '',
     },
     // Esquema de validaciones, que declaramos e importamos
 
@@ -98,7 +104,8 @@ function Create(props) {
   }
 
   useEffect(() => {
-    dispatch(getTerminales());;
+    dispatch(getTerminales());
+    dispatch(getBuses())
   }, [dispatch])
 
 
@@ -234,9 +241,26 @@ function Create(props) {
                 />
               </FloatingLabel>
             </div>
-
-
-
+            <Form.Group className={styles.formGroup} controlId="formBasicEmail">
+              <Form.Label className='text-black'>Seleccionar Autobus</Form.Label>
+              <Select
+                className={styles.form_input}
+                isClearable
+                options={buses.data?.map(city => ({
+                  value: city.id,
+                  label: city.modelo + ' - ' + city.placa,
+                }))}
+                placeholder='Autobus'
+                onChange={(selectedOption) => {
+                  if (selectedOption) {
+                    setDataRoutes({ ...dataRoutes, bus: selectedOption.value });
+                  } else {
+                    setDataRoutes({ ...dataRoutes, bus: '' });
+                  }
+                }}
+                required
+              />
+            </Form.Group>
 
             <Button className='w-100 my-4' variant="primary" type="submit">
               Crear Ruta

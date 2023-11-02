@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES, GET_ALL_COMPANIES } from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, GET_TERMINAL, GET_ALL_RUTES, DELETE_RUTE, GET_BUSES, GET_ALL_COMPANIES, CREATED_ROUTE } from './action-types'
 
 export const searchResults = (data) => {
     return {
@@ -7,15 +7,18 @@ export const searchResults = (data) => {
         payload: data
     }
 }
-export const createRoute = (formData) => async () => {
-    console.log('REDUX', formData);
+export const createRoute = (formData) => async (dispatch) => {
     try {
-        const response = await axios.post('http://localhost:3001/rutas', formData);
-        console.log('Registro exitoso:', response.data);
+        const { data } = await axios.post('http://localhost:3001/rutas', formData);
+        dispatch({
+            type: CREATED_ROUTE,
+            payload: data
+        })
     } catch (error) {
-        console.error('Error en el registro:', error);
+        console.error(error);
     }
 };
+
 export const deleteRute = (idRutes) => async () => {
     try {
         const response = await axios.post('http://localhost:3001/rutas/delete', idRutes);
@@ -24,11 +27,11 @@ export const deleteRute = (idRutes) => async () => {
         console.error('Error en el borrado:', error);
     }
 };
+
 export const getAllRutes = () => {
     return async (dispatch) => {
         try {
             const { data } = await axios.get('http://localhost:3001/rutas/getAll');
-            console.log(data);
             dispatch({
                 type: GET_ALL_RUTES,
                 payload: data.data

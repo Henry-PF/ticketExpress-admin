@@ -60,13 +60,12 @@ const LoginPage = (props) => {
         }
     };
 
-
-
     useEffect(() => {
         const userData = Cookies.get("userData");
         if (userData) {
             const parsedUser = JSON.parse(userData);
             setUser(parsedUser);
+            console.log(user);
         }
     }, []);
 
