@@ -12,9 +12,9 @@ export default function Selection(){
                 <div className={styles.div1}>
                     <h2 className={styles.h2}>CREAR</h2>
                     <p class="d-inline-flex gap-1">
-                        <a href="create_company" class="btn btn-outline-light" role="button" data-bs-toggle="button">EMPRESA</a>
-                        <a href="/create_bus" class="btn btn-outline-light" role="button" data-bs-toggle="button">COLECTIVO</a>
-                        <a href="/create_route" class="btn btn-outline-light" role="button" data-bs-toggle="button">RUTA</a>
+                        <a href="create_company" className="btn btn-outline-light" role="button" data-bs-toggle="button">EMPRESA</a>
+                        <a href="/create_bus" className="btn btn-outline-light" role="button" data-bs-toggle="button">COLECTIVO</a>
+                        <a href="/create_route" className="btn btn-outline-light" role="button" data-bs-toggle="button">RUTA</a>
                     </p>
                 </div>
 
