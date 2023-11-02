@@ -47,7 +47,7 @@ const LoginPage = (props) => {
                     localStorage.setItem("correo", data.data.correo);
                     window.location.reload();
 
-                    // window.location.href = "/home"; 
+                    window.location.href = "/admin/home";
                 } else {
                     Swal.fire({
                         title: "Acceso denegado. No eres administrador.",
@@ -71,7 +71,6 @@ const LoginPage = (props) => {
     }, []);
 
     return (
-        console.log(userData, 'USERDATA'),
         <>
             {/* <form className="login-form" onSubmit={handleSubmit}> */}
             <form className="login-form">
@@ -134,12 +133,6 @@ const LoginPage = (props) => {
                             Login
                         </button>
                     </Link>
-                    <p className="small fw-bold mt-2 pt-1 mb-0">
-                        Don't have an account?{" "}
-                        <a href="#!" className="link-danger">
-                            Register
-                        </a>
-                    </p>
                 </div>
             </form>
         </>

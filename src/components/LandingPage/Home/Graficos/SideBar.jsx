@@ -1,4 +1,6 @@
 import React from 'react'
+import { SlLogout } from 'react-icons/sl'
+import '../home.css'
 
 export default function SideBar() {
     // --------------------------------Lista de Buses---------------------------------------
@@ -26,6 +28,10 @@ export default function SideBar() {
     }
     // -----------------------------------------------------------------------
 
+    const handleClick = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
     return (
         <div>
             <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css" />
@@ -116,8 +122,13 @@ export default function SideBar() {
                         </ul>
                     </nav>
                 </div>
-            </aside>
+                <div className='btn_'>
+                    <SlLogout className='icon' />
+                    <button className='btn_exit' onClick={handleClick}> Salir</button>
 
-        </div>
+                </div>
+            </aside >
+
+        </div >
     )
 }
