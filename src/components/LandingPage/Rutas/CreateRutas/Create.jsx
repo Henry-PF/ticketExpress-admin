@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
+import Swal from 'sweetalert2';
 
 function Create(props) {
   const dispatch = useDispatch()
@@ -52,6 +53,19 @@ function Create(props) {
     }
     // formData.append('data', JSON.stringify(dataRoute));
     dispatch(createRoute(dataRoute));
+    Swal.fire(
+      'Ruta Creada!',
+      'La Ruta fue creado exitosamente.',
+      'success'
+    ).then(() => setDataRoutes({
+      origen: '',
+      destino: '',
+      fecha_salida: '',
+      fecha_llegada: '',
+      hora_salida: '',
+      hora_llegada: '',
+      precio: '',
+    }))
   }
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
