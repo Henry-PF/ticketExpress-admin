@@ -43,7 +43,7 @@ function Update(props) {
   }
   const handleSaveChange = async () => {
     try {
-      const data = await axios.post('https://backend-6du3.onrender.com/rutas/update', selectedRute);
+      const data = await axios.post('https://api-54nh.onrender.com/rutas/update', selectedRute);
       if (data.status === 200) {
         Swal.fire({
           title: data.data.message,

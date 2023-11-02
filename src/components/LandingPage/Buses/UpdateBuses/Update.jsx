@@ -41,7 +41,7 @@ export default function Update() {
 
   const handleSaveChange = async () => {
     try {
-      const data = await axios.put('https://backend-6du3.onrender.com/buses/update_bus', selectedBus);
+      const data = await axios.put('https://api-54nh.onrender.com/buses/update_bus', selectedBus);
       if (data.status === 200) {
         Swal.fire({
           title: data.data.message,
@@ -71,7 +71,7 @@ export default function Update() {
         confirmButtonText: 'Si, deshabilitar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          const { data } = axios.put(`https://backend-6du3.onrender.com/buses/delete_bus/${id}/2`);
+          const { data } = axios.put(`https://api-54nh.onrender.com/buses/delete_bus/${id}/2`);
           Swal.fire(
             'Servicio Deshabilitado!',
             'El Servicio fue deshabilidato exitosamente.',
@@ -99,7 +99,7 @@ export default function Update() {
         confirmButtonText: 'Si, habilitar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          const { data } = axios.put(`https://backend-6du3.onrender.com/buses/delete_bus/${id}/1`);
+          const { data } = axios.put(`https://api-54nh.onrender.com/buses/delete_bus/${id}/1`);
           Swal.fire(
             'Servicio Habilitado!',
             'El Servicio fue habilidato exitosamente.',

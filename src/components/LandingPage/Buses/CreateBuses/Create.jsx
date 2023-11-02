@@ -21,7 +21,7 @@ export default function Create() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            const { data } = await axios.post('https://backend-6du3.onrender.com/buses/create_bus', datos)
+            const { data } = await axios.post('https://api-54nh.onrender.com/buses/create_bus', datos)
             if (data) {
                 Swal.fire(
                     'Bus Creado!',

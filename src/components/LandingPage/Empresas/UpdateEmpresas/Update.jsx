@@ -45,7 +45,7 @@ export default function Update() {
 
   const handleSaveChanges = async () => {
     try {
-      const data = await axios.put('https://backend-6du3.onrender.com/empresas/update', selectedCompany.dato);
+      const data = await axios.put('https://api-54nh.onrender.com/empresas/update', selectedCompany.dato);
       if (data.status === 200) {
         Swal.fire({
           title: data.data.message,
@@ -75,7 +75,7 @@ export default function Update() {
         confirmButtonText: 'Si, deshabilitar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          const { data } = axios.put(`https://backend-6du3.onrender.com/empresas/delete/${id}/2`);
+          const { data } = axios.put(`https://api-54nh.onrender.com/empresas/delete/${id}/2`);
           Swal.fire(
             'Servicio Deshabilitado!',
             'El Servicio fue deshabilidato exitosamente.',
@@ -102,7 +102,7 @@ export default function Update() {
         confirmButtonText: 'Si, habilitar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          const { data } = axios.put(`https://backend-6du3.onrender.com/empresas/delete/${id}/1`);
+          const { data } = axios.put(`https://api-54nh.onrender.com/empresas/delete/${id}/1`);
           Swal.fire(
             'Servicio Habilitado!',
             'El Servicio fue habilidato exitosamente.',

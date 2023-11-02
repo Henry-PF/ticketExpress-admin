@@ -21,7 +21,7 @@ export default function Create() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post('https://backend-6du3.onrender.com/empresas/create', datos);
+      const { data } = await axios.post('https://api-54nh.onrender.com/empresas/create', datos);
       if (data) {
         Swal.fire(
           'Empresa Creada!',
