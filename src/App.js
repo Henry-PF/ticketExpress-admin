@@ -40,11 +40,8 @@ function App() {
           <Route exact path='/admin/Rutas/delete' element={<DeleteRutas />} />
           <Route exact path='/admin/Rutas/update' element={<UpdateRutas />} />
           <Route exact path='/admin/Rutas/read' element={<ReadRutas />} />
-
           {/* Rutas Dashboard */}
           <Route exact path='/admin/home' element={<Home />} />
-
-
         </Route>
       </Routes>
     </div>

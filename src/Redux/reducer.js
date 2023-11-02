@@ -1,15 +1,15 @@
-import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, USER_REGISTER, GET_TERMINAL, GET_ALL_RUTES, GET_BUSES, GET_ALL_COMPANIES, CREATED_ROUTE } from './action-types'
+import { GET_CITIES, GET_PROVINCE, SEARCH_RESULTS, USER_LOGIN, USER_REGISTER, GET_TERMINAL, GET_ALL_RUTES, GET_BUSES, GET_ALL_COMPANIES, GET_ALL_USERS, CREATED_ROUTE } from './action-types'
 
 const initialState = {
     data: [],
+    buses: [],
+    users: [],
+    trips: [],
     cities: [],
     province: [],
-    buses: [],
-    userGoogle: {},
     companies: [],
-    terminales: [],
-    trips: [],
-    route: {},
+    userGoogle: {},
+    terminales: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -28,6 +28,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userGoogle: action.payload,
+            }
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                users: action.payload,
             }
         case GET_CITIES:
             return {
