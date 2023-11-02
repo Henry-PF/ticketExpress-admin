@@ -43,7 +43,7 @@ function Update(props) {
   }
   const handleSaveChange = async () => {
     try {
-      const data = await axios.post('http://localhost:3001/rutas/update', selectedRute);
+      const data = await axios.post('https://backend-6du3.onrender.com/rutas/update', selectedRute);
       if (data.status === 200) {
         Swal.fire({
           title: data.data.message,
@@ -60,7 +60,7 @@ function Update(props) {
       console.error(error);
     }
   }
-  
+
   const updateOnClick = (ruteId) => {
     const selectedRute = allRutas?.find((ruta) => ruta.id === ruteId);
     setSelectedRute(selectedRute);

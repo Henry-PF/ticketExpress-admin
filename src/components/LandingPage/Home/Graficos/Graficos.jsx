@@ -49,7 +49,7 @@ function Graficos(props) {
     const handleSaveChange = async () => {
         try {
             console.log(selectedUser);
-            const data = await axios.post('http://localhost:3001/usuarios/update', selectedUser);
+            const data = await axios.post('https://backend-6du3.onrender.com/usuarios/update', selectedUser);
             if (data.status === 200) {
                 Swal.fire({
                     title: data.data.message,
